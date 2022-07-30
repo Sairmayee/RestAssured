@@ -2,6 +2,8 @@ package steps;
 
 import java.io.File;
 
+import org.hamcrest.Matchers;
+
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
@@ -71,6 +73,8 @@ public class StepDefinition_ChangeRequest {
 	public void searchSameCR(){
 		response = RestAssured.given().log().all().get(sys_id);
 		response.prettyPrint();
+		response.then().assertThat().body("status", 
+				Matchers.equalTo("failure"));
 	}
 	@Then("Validate the Status Code for CR is 204")
 	
